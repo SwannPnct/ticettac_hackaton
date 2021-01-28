@@ -10,17 +10,7 @@ var options = {
   useUnifiedTopology: true
  };
 
-// --------------------- BDD -----------------------------------------------------
-mongoose.connect('mongodb+srv://npoyet:admin@cluster0.mgo4x.mongodb.net/hackaton',
-   options,
-   function(err) {
-    if (err) {
-      console.log(`error, failed to connect to the database because --> ${err}`);
-    } else {
-      console.info('*** Database Ticketac connection : Success ***');
-    }
-   }
-);
+
 
 var journeySchema = mongoose.Schema({
   departure: String,
