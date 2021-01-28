@@ -1,4 +1,5 @@
 var express = require('express');
+const { findById } = require('../models/journeys');
 var router = express.Router();
 
 var journeyModel = require('../models/journeys');
@@ -28,9 +29,6 @@ router.post('/search', async function(req, res, next) {
 
   var date = new Date (req.body.date)
   date = date.getDate()+"/"+(date.getMonth()+1)
-
-  
-  console.log(result)
   
 
   res.render('search', {city, result, date});
@@ -91,8 +89,19 @@ router.get('/result', function(req, res, next) {
 
 
 router.get('/book-ticket', async (req,res,next) => {
-  const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}});
-  res.render('tickets', {bookings: user.bookings});
+const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
+// tester l'unicité pour pas pousser plusieurs fois le même voyage
+
+  const bookingsInfo = await UserModel.findById(req.session.connectedId)
+    .populate('bookings')
+    .exec();
+  
+    var date = []
+    for (i=0; i<bookingsInfo.bookings.length;i++) {
+  date.push(bookingsInfo.bookings[i].date.toLocaleDateString())
+    }
+
+  res.render('tickets', {bookings:bookingsInfo.bookings, date})
 })
 
 router.get('/confirm-trips', async (req,res,next) => {
