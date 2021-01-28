@@ -54,6 +54,7 @@ router.get('/save', async function(req, res, next) {
         date: date[Math.floor(Math.random() * Math.floor(date.length))],
         departureTime:Math.floor(Math.random() * Math.floor(23)) + ":00",
         price: Math.floor(Math.random() * Math.floor(125)) + 25,
+        status : null
       });
        
        await newJourney.save();
