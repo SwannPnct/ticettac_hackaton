@@ -92,6 +92,7 @@ router.get('/result', function(req, res, next) {
 
 router.get('/book-ticket', async (req,res,next) => {
   const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
+  console.log(user.bookings)
   res.render('tickets', {bookings: user.bookings})
 })
 
