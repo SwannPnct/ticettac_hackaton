@@ -37,7 +37,7 @@ router.post('/sign-up', async (req,res,next) => {
   console.log("user added!");
   req.session.hasTriedUp = false;
   req.session.connectedId = savedUser._id;
-  res.render('index',{});
+  res.redirect('/');
 })
 
 router.post('/sign-in', async (req,res,next) => {
@@ -47,7 +47,7 @@ router.post('/sign-in', async (req,res,next) => {
     console.log("user connected!");
     req.session.connectedId = savedUser._id;
     req.session.hasTriedIn = false;
-    res.render('index', {})
+    res.redirect('/');
   } else {
     console.log("wrong credentials or user not existing");
     req.session.hasTriedIn = true;
