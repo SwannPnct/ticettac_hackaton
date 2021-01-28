@@ -1,8 +1,13 @@
+html {
+  height: 100%;
+}
+
 body {
-  padding: 50px;
+  background: linear-gradient(#D6E6EF,#2D7EB2);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
