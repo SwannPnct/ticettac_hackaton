@@ -16,13 +16,14 @@
             <h3>Sign-In</h3>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" name="email">
+              <input type="email" class="form-control" name="email" <% if(hasTriedIn) { %> style="border: solid 1px red; background-color: #FFC9C9" <%} %>>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" name="password">
+              <input type="password" class="form-control" name="password" <% if(hasTriedIn) { %> style="border: solid 1px red; background-color: #FFC9C9" <%} %>>
             </div>
-            <button type="submit" class="btn btn-primary btn-danger">Sign-In</button>
+            <button type="submit" class="btn btn-primary btn-danger">Sign-In</button> 
+            <% if(hasTriedIn) { %> <br><small style="color: red;">Incorrect username or password.</small> <%} %>
         </form>
         <form class="m-4" method="POST" action="/users/sign-up">
             <h3>Sign-Up</h3>
@@ -36,7 +37,8 @@
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" name="email">
+              <input type="email" class="form-control" name="email" <% if(hasTriedUp) { %> style="border: solid 1px red; background-color: #FFC9C9" <%} %>>
+              <% if(hasTriedUp) { %> <br><small style="color: red;">Email already used by someone else.</small> <%} %>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>

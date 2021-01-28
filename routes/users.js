@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', (req,res,next) => {
-  res.render('login', {});
+  res.render('login', {hasTriedIn : req.session.hasTriedIn,
+                      hasTriedUp: req.session.hasTriedUp});
 })
 
 router.post('/sign-up', async (req,res,next) => {
@@ -19,6 +20,7 @@ router.post('/sign-up', async (req,res,next) => {
 
   if (checkEmail) {
     console.log("email already in use");
+    req.session.hasTriedUp = true;
     res.redirect('/users/login');
     return;
   }
@@ -32,7 +34,8 @@ router.post('/sign-up', async (req,res,next) => {
 
   await newUser.save();
   console.log("user added!");
-
+  req.session.hasTriedUp = false;
+  req.session.isConnected = true;
   res.render('index',{});
 })
 
@@ -41,9 +44,12 @@ router.post('/sign-in', async (req,res,next) => {
 
   if (check) {
     console.log("user connected!");
+    req.session.isConnected = true;
+    req.session.hasTriedIn = false;
     res.render('index', {})
   } else {
     console.log("wrong credentials or user not existing");
+    req.session.hasTriedIn = true;
     res.redirect('/users/login');
   }
 })

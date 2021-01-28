@@ -10,6 +10,15 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+const session = require('express-session');
+
+app.use(
+  session({ 
+  secret: 'this_is_something_really_secured_i_promise', 
+  resave: false,
+  saveUninitialized: false,
+  })
+  );
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
