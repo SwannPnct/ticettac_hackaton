@@ -45,7 +45,7 @@ router.post('/sign-in', async (req,res,next) => {
 
   if (check) {
     console.log("user connected!");
-    req.session.connectedId = savedUser._id;
+    req.session.connectedId = check._id;
     req.session.hasTriedIn = false;
     res.redirect('/');
   } else {
