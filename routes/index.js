@@ -9,7 +9,6 @@ var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lil
 var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
 
-
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 
@@ -89,21 +88,37 @@ router.get('/result', function(req, res, next) {
 });
 
 
+
 router.get('/book-ticket', async (req,res,next) => {
-const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
+// const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
 // tester l'unicité pour pas pousser plusieurs fois le même voyage
-  const bookingsInfo = await UserModel.findById(req.session.connectedId)
-    .populate('bookings')
-    .exec();
+if (!req.session.pending) {
+  req.session.pending = [];
+}
+req.session.pending.push(req.query.id);
+
+
+const bookings = [];
+for (i=0;i<req.session.pending.length;i++) {
+  const booking = await journeyModel.findById(req.session.pending[i])
+  bookings.push(booking);
+};
+
+console.log("bookings:",bookings)
+// var bookingsInfo = await joureyModel.findById(req.session.pending)
+
+//   const bookingsInfo = await UserModel.findById(req.session.connectedId)
+//     .populate('bookings')
+//     .exec();
   
   
   
     var date = [];
-    for (i=0; i<bookingsInfo.bookings.length;i++) {
-  date.push(bookingsInfo.bookings[i].date.toLocaleDateString())
+    for (i=0; i<bookings.length;i++) {
+  date.push(bookings[i].date.toLocaleDateString())
     }
 
-  res.render('tickets', {bookings:bookingsInfo.bookings, date})
+  res.render('tickets', {bookings, date})
 })
 
 router.get('/confirm-trips', async (req,res,next) => {
