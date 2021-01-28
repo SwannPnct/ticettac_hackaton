@@ -11,7 +11,7 @@ var options = {
  };
 
 // --------------------- BDD -----------------------------------------------------
-mongoose.connect('mongodb+srv://npoyet:admin@cluster0.mgo4x.mongodb.net/test',
+mongoose.connect('mongodb+srv://npoyet:admin@cluster0.mgo4x.mongodb.net/hackaton',
    options,
    function(err) {
     if (err) {
