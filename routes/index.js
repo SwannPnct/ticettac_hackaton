@@ -14,6 +14,27 @@ router.get('/', async function(req, res, next) {
   res.render('index', {city});
 });
 
+/* POST search page. */
+router.post('/search', async function(req, res, next) {
+
+// sécurité à ajouter: mettre tout en minuscule et première lettre en majuscule sur les req.body
+
+  var result = await journeyModel.find({
+    departure:req.body.departure,
+    arrival:req.body.arrival,
+    date:req.body.date
+  }) 
+
+  
+  var date = new Date (req.body.date)
+  date = date.getDate()+"/"+(date.getMonth()+1)
+
+  
+  console.log(result)
+  
+
+  res.render('search', {city, result, date});
+});
 
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {
