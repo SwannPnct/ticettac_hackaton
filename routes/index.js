@@ -91,14 +91,24 @@ router.get('/result', function(req, res, next) {
 
 
 router.get('/book-ticket', async (req,res,next) => {
-  const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
-  res.render('tickets', {bookings: user.bookings})
+  const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}});
+  res.render('tickets', {bookings: user.bookings});
+})
+
+router.get('/confirm-trips', async (req,res,next) => {
+  const trips = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
+  trips.forEach((obj) => {
+    if (obj.status == "pending") {
+      obj.status = "validated";
+    }
+  })
+  await trips.save();
+  res.redirect('/');
 })
 
 router.get('/last-trips', async (req,res,next) => {
-  const trips = await UserModel.findById("6012c4f711d6ec4ff405116e").populate('bookings');
-  console.log("here");
-  console.log(trips);
+  const trips = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
+  // to be done
   res.render('lasttrips',{})
 })
 
