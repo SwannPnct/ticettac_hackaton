@@ -89,36 +89,27 @@ router.get('/result', function(req, res, next) {
 
 
 router.get('/book-ticket', async (req,res,next) => {
-// const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
-// tester l'unicité pour pas pousser plusieurs fois le même voyage
 if (!req.session.pending) {
   req.session.pending = [];
 }
-req.session.pending.push(req.query.id);
+if (!req.session.pending.includes(req.query.id)) {
 
+req.session.pending.push(req.query.id);
 
 const bookings = [];
 for (i=0;i<req.session.pending.length;i++) {
   const booking = await journeyModel.findById(req.session.pending[i])
   bookings.push(booking);
 };
-
-console.log("bookings:",bookings)
-// var bookingsInfo = await joureyModel.findById(req.session.pending)
-
-//   const bookingsInfo = await UserModel.findById(req.session.connectedId)
-//     .populate('bookings')
-//     .exec();
-  
-  
-  
+ 
     var date = [];
     for (i=0; i<bookings.length;i++) {
   date.push(bookings[i].date.toLocaleDateString())
     }
-
+  
   res.render('tickets', {bookings, date})
-})
+} res.redirect('/'); // what behavoir do we want when trip already selected?  
+});
 
 router.get('/confirm-trips', async (req,res,next) => {
   const user = await UserModel.findById(req.session.connectedId);
