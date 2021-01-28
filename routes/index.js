@@ -95,6 +95,13 @@ router.get('/book-ticket', async (req,res,next) => {
   res.render('tickets', {bookings: user.bookings})
 })
 
+router.get('/last-trips', async (req,res,next) => {
+  const trips = await UserModel.findById("6012c4f711d6ec4ff405116e").populate('bookings');
+  console.log("here");
+  console.log(trips);
+  res.render('lasttrips',{})
+})
+
 
 
 module.exports = router;
