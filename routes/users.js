@@ -14,7 +14,7 @@ router.get('/login', (req,res,next) => {
                       hasTriedUp: req.session.hasTriedUp});
 })
 
-router.post('/sign-up', async (req,res,next) => {
+router.route('/sign-up').post(async (req,res,next) => {
 
   const checkEmail = await UserModel.findOne({email: req.body.email});
 
@@ -39,8 +39,11 @@ router.post('/sign-up', async (req,res,next) => {
   req.session.connectedId = savedUser._id;
   res.redirect('/');
 })
+.get((req,res,next) => {
+  res.redirect('/users/login');
+})
 
-router.post('/sign-in', async (req,res,next) => {
+router.route('/sign-in').post( async (req,res,next) => {
   const check = await UserModel.findOne({email: req.body.email, password: req.body.password});
 
   if (check) {
@@ -53,6 +56,9 @@ router.post('/sign-in', async (req,res,next) => {
     req.session.hasTriedIn = true;
     res.redirect('/users/login');
   }
+})
+.get((req,res,next) => {
+  res.redirect('/users/login');
 })
 
 module.exports = router;
