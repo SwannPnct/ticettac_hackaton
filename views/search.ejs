@@ -14,13 +14,13 @@
     </div>
     <% } else { %>
       <h4 class="text-white offset-3 mt-5 mb-3">Tickets available on <%=date%> :</h4>  
-      <div class="container">
+      <div class="container col-7">
       <% for (i=0;i<result.length;i++) { %>
-        <div class="d-flex justify-content-around bg-white mb-3 mt-3 col-8 offset-2 align-items-center rounded">
+        <div class="d-flex justify-content-around bg-white mb-3 mt-3 align-items-center rounded">
           <div class="h6"><b><%=result[i].departure%> / <%=result[i].arrival%></b></div>
           <div class="text-secondary"><b> train departure at : <%=result[i].departureTime%></b></div>
-          <div class="d-flex justify-content-around align-items-center">
-            <div class="h5"><b><%=result[i].price%>€</b></div>
+          <div class="d-flex  align-items-center ">
+            <div class="h5 mx-4"><b><%=result[i].price%>€</b></div>
             <a class="btn btn-danger mb-4 mt-4" href="/book-ticket?id=<%=result[i]._id%>">OK</a>
           </div>
         </div>
