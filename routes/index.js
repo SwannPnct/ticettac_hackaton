@@ -11,7 +11,7 @@ var options = {
  };
 
 // --------------------- BDD -----------------------------------------------------
-mongoose.connect('mongodb+srv://XXXXXXXX:*********@XXXXXXXX-0hsfc.mongodb.net/Ticketac?retryWrites=true',
+mongoose.connect('mongodb+srv://npoyet:admin@cluster0.mgo4x.mongodb.net/test',
    options,
    function(err) {
     if (err) {
@@ -52,12 +52,12 @@ router.get('/save', async function(req, res, next) {
   // Save  ---------------------------------------------------
     for(var i = 0; i< count; i++){
 
-    departureCity = city[Math.floor(Math.random() * Math.floor(city.length))]
-    arrivalCity = city[Math.floor(Math.random() * Math.floor(city.length))]
+    const departureCity = city[Math.floor(Math.random() * Math.floor(city.length))]
+    const arrivalCity = city[Math.floor(Math.random() * Math.floor(city.length))]
 
     if(departureCity != arrivalCity){
 
-      var newUser = new journeyModel ({
+      var newJourney = new journeyModel ({
         departure: departureCity , 
         arrival: arrivalCity, 
         date: date[Math.floor(Math.random() * Math.floor(date.length))],
@@ -65,7 +65,7 @@ router.get('/save', async function(req, res, next) {
         price: Math.floor(Math.random() * Math.floor(125)) + 25,
       });
        
-       await newUser.save();
+       await newJourney.save();
 
     }
 
