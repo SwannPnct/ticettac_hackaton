@@ -89,4 +89,9 @@ router.get('/result', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+
+router.get('/book-ticket', (req,res,next))
+
+
+
 module.exports = router;

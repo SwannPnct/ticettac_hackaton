@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     lastName : String,
     email : String,
     password : String,
+    bookings : [{type: mongoose.Schema.Types.ObjectId, ref: 'journey'}]
 })
 
 
