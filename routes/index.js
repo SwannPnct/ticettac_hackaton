@@ -26,7 +26,6 @@ router.post('/search', async function(req, res, next) {
     date:req.body.date
   }) 
 
-  
   var date = new Date (req.body.date)
   date = date.getDate()+"/"+(date.getMonth()+1)
 
