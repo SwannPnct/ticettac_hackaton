@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var journeyModel = require('../models/journeys')
+var journeyModel = require('../models/journeys');
+const UserModel = require('../models/users');
 
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
 var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
@@ -90,7 +91,10 @@ router.get('/result', function(req, res, next) {
 });
 
 
-router.get('/book-ticket', (req,res,next))
+router.get('/book-ticket', async (req,res,next) => {
+  const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
+  res.render('tickets', {bookings: user.booking})
+})
 
 
 

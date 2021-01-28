@@ -32,10 +32,11 @@ router.post('/sign-up', async (req,res,next) => {
     password : req.body.password,
   })
 
-  await newUser.save();
+  const savedUser = await newUser.save();
+
   console.log("user added!");
   req.session.hasTriedUp = false;
-  req.session.isConnected = true;
+  req.session.connectedId = savedUser._id;
   res.render('index',{});
 })
 
@@ -44,7 +45,7 @@ router.post('/sign-in', async (req,res,next) => {
 
   if (check) {
     console.log("user connected!");
-    req.session.isConnected = true;
+    req.session.connectedId = savedUser._id;
     req.session.hasTriedIn = false;
     res.render('index', {})
   } else {
