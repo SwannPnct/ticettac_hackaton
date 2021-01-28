@@ -91,12 +91,13 @@ router.get('/result', function(req, res, next) {
 router.get('/book-ticket', async (req,res,next) => {
   const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
 // tester l'unicité pour pas pousser plusieurs fois le même voyage
-
   const bookingsInfo = await UserModel.findById(req.session.connectedId)
     .populate('bookings')
     .exec();
   
-    var date = []
+  
+  
+    var date = [];
     for (i=0; i<bookingsInfo.bookings.length;i++) {
   date.push(bookingsInfo.bookings[i].date.toLocaleDateString())
     }
@@ -110,7 +111,6 @@ router.get('/last-trips', async (req,res,next) => {
   console.log(trips);
   res.render('lasttrips',{})
 })
-
 
 
 module.exports = router;
