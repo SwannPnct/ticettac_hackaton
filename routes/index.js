@@ -54,6 +54,7 @@ router.get('/save', async function(req, res, next) {
         date: date[Math.floor(Math.random() * Math.floor(date.length))],
         departureTime:Math.floor(Math.random() * Math.floor(23)) + ":00",
         price: Math.floor(Math.random() * Math.floor(125)) + 25,
+        status : null
       });
        
        await newJourney.save();
@@ -89,7 +90,7 @@ router.get('/result', function(req, res, next) {
 
 
 router.get('/book-ticket', async (req,res,next) => {
-  const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
+const user = await UserModel.findOneAndUpdate({_id: req.session.connectedId}, {$push: {bookings: req.query.id}})
 // tester l'unicité pour pas pousser plusieurs fois le même voyage
   const bookingsInfo = await UserModel.findById(req.session.connectedId)
     .populate('bookings')
@@ -105,10 +106,20 @@ router.get('/book-ticket', async (req,res,next) => {
   res.render('tickets', {bookings:bookingsInfo.bookings, date})
 })
 
+router.get('/confirm-trips', async (req,res,next) => {
+  const trips = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
+  trips.forEach((obj) => {
+    if (obj.status == "pending") {
+      obj.status = "validated";
+    }
+  })
+  await trips.save();
+  res.redirect('/');
+})
+
 router.get('/last-trips', async (req,res,next) => {
-  const trips = await UserModel.findById("6012c4f711d6ec4ff405116e").populate('bookings');
-  console.log("here");
-  console.log(trips);
+  const trips = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
+  // to be done
   res.render('lasttrips',{})
 })
 
