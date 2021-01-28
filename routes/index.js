@@ -1,17 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-const mongoose = require('mongoose');
-
-// useNewUrlParser ;)
-var options = {
-  connectTimeoutMS: 5000,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
- };
-
-
-
 var journeySchema = mongoose.Schema({
   departure: String,
   arrival: String,
