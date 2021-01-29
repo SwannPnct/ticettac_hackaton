@@ -10,13 +10,15 @@ var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-
-  res.render('index', {city, isConnected: req.session.connectedId});
+  res.render('index', {city, isConnected: req.session.isConnected, name: req.session.name});
 });
 
 /* POST search page. */
 router.post('/search', async function(req, res, next) {
-
+  if (!req.session.connectedId) {
+    res.redirect('/login');
+    return;
+  }
 // sécurité à ajouter: mettre tout en minuscule et première lettre en majuscule sur les req.body
 
   var result = await journeyModel.find({
@@ -29,7 +31,7 @@ router.post('/search', async function(req, res, next) {
   date = date.getDate()+"/"+(date.getMonth()+1)
   
 
-  res.render('search', {city, result, date,isConnected: req.session.connectedId});
+  res.render('search', {city, result, date,isConnected: req.session.connectedId,name: req.session.name});
 });
 
 // Remplissage de la base de donnée, une fois suffit
@@ -82,7 +84,7 @@ for (let i=0;i<req.session.pending.length;i++) {
   date.push(bookings[i].date.toLocaleDateString())
     }
 
-  res.render('tickets', {bookings, date})
+  res.render('tickets', {bookings, date,isConnected: req.session.connectedId,name: req.session.name})
 });
 
 
@@ -137,6 +139,10 @@ router.get('/last-trips', (req,res,next) => {
 
 router.get('/login', (re,res,next) => {
   res.redirect('/users/login')
+})
+
+router.get('/disconnect', (re,res,next) => {
+  res.redirect('/users/disconnect')
 })
 
 module.exports = router;
