@@ -7,7 +7,11 @@
     <script src="https://kit.fontawesome.com/908f94efd2.js" crossorigin="anonymous"></script>
   </head>
   <body>
+    <% if (isConnected) { %>
+      <%- include('./partials/header_connected.ejs') %> 
+   <% } else {%> 
     <%- include('./partials/header.ejs') %> 
+    <% } %> 
 
 
     <div class="w-100 d-flex flex-row justify-content-center pt-5">

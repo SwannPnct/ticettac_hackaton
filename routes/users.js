@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', (req,res,next) => {
   res.render('login', {hasTriedIn : req.session.hasTriedIn,
-                      hasTriedUp: req.session.hasTriedUp});
+                      hasTriedUp: req.session.hasTriedUp, isConnected: req.session.connectedId});
 })
 
 router.route('/sign-up').post(async (req,res,next) => {
@@ -69,6 +69,11 @@ router.get('/last-trips', async (req,res,next) => {
     date.push(user.bookings[i].date.toLocaleDateString())
     }
   res.render('lasttrips',{bookings: user.bookings, date})
+})
+
+router.get('/disconnect', (req,res,next) => {
+  req.session.connectedId = null;
+  res.redirect('/');
 })
 
 module.exports = router;

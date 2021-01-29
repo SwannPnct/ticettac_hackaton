@@ -7,7 +7,11 @@
     <script src="https://kit.fontawesome.com/908f94efd2.js" crossorigin="anonymous"></script>
   </head>
   <body>
+    <% if (isConnected) { %>
+      <%- include('./partials/header_connected.ejs') %> 
+   <% } else {%> 
     <%- include('./partials/header.ejs') %> 
+    <% } %>
     <% if (result.length == 0) { %>
       <h4 class="text-white text-center mt-5 mb-3">Oops ! No trains available</h4>
       <div class="d-flex justify-content-center">

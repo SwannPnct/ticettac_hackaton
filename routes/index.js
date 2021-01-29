@@ -8,11 +8,10 @@ const UserModel = require('../models/users');
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
 var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
-
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 
-  res.render('index', {city});
+  res.render('index', {city, isConnected: req.session.connectedId});
 });
 
 /* POST search page. */
@@ -30,7 +29,7 @@ router.post('/search', async function(req, res, next) {
   date = date.getDate()+"/"+(date.getMonth()+1)
   
 
-  res.render('search', {city, result, date});
+  res.render('search', {city, result, date,isConnected: req.session.connectedId});
 });
 
 // Remplissage de la base de donnée, une fois suffit
