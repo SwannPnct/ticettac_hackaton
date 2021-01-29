@@ -116,7 +116,7 @@ if (!req.session.pending.includes(req.query.id)) {
 req.session.pending.push(req.query.id);
 
   res.redirect('/tickets')
-}  else { res.redirect('/tickets'); // what behavoir do we want when trip already selected?  
+}  else { res.redirect('/tickets'); 
 }});
 
 
