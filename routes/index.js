@@ -63,42 +63,23 @@ router.get('/save', async function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
-// Cette route est juste une verification du Save.
-// Vous pouvez choisir de la garder ou la supprimer.
-router.get('/result', function(req, res, next) {
-
-  // Permet de savoir combien de trajets il y a par ville en base
-  for(i=0; i<city.length; i++){
-
-    journeyModel.find( 
-      { departure: city[i] } , //filtre
-  
-      function (err, journey) {
-
-          console.log(`Nombre de trajets au départ de ${journey[0].departure} : `, journey.length);
-      }
-    )
-
-  }
-
-
-  res.render('index', { title: 'Express' });
-});
-
 router.get('/tickets', async (req,res,next) => {
+  if (!req.session.connectedId) {
+    res.redirect('/login');
+    return;
+  }
   if(req.session.pending == undefined){
     req.session.pending = []
   }
 
   const bookings = [];
-for (i=0;i<req.session.pending.length;i++) {
+for (let i=0;i<req.session.pending.length;i++) {
   const booking = await journeyModel.findById(req.session.pending[i])
   bookings.push(booking);
 };
  
     var date = [];
-    for (i=0; i<bookings.length;i++) {
+    for (let i=0; i<bookings.length;i++) {
   date.push(bookings[i].date.toLocaleDateString())
     }
 
@@ -107,6 +88,10 @@ for (i=0;i<req.session.pending.length;i++) {
 
 
 router.get('/book-ticket', async (req,res,next) => {
+  if (!req.session.connectedId) {
+    res.redirect('/login');
+    return;
+  }
 if (!req.session.pending) {
   req.session.pending = [];
 } 
@@ -121,6 +106,10 @@ req.session.pending.push(req.query.id);
 
 
 router.get('/delete-ticket', async function(req, res, next) {
+  if (!req.session.connectedId) {
+    res.redirect('/login');
+    return;
+  }
   req.session.pending.splice(req.query.position,1) // à tester
   console.log(req.session.pending)
   res.redirect('/tickets');
@@ -128,6 +117,10 @@ router.get('/delete-ticket', async function(req, res, next) {
 
 
 router.get('/confirm-trips', async (req,res,next) => {
+  if (!req.session.connectedId) {
+    res.redirect('/login');
+    return;
+  }
   const user = await UserModel.findById(req.session.connectedId);
   console.log(user);
   console.log(req.session.connectedId);
