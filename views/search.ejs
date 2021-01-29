@@ -9,13 +9,16 @@
   </head>
   <body>
     <%- include('./partials/header.ejs') %> 
+    <div class="col-7 mt-4 offset-1">
+      <a href="/"> < Back to Home </a>
+    </div>
     <% if (result.length == 0) { %>
       <h4 class="text-white text-center mt-5 mb-3">Oops ! No trains available</h4>
       <div class="d-flex justify-content-center">
         <a class="btn btn-danger" href="/">Home</a>
     </div>
     <% } else { %>
-      <h4 class="text-white offset-3 mt-5 mb-3">Train Schedules info for <%=result[0].departure%> / <%=result[0].arrival%> :</h4>  
+      <h4 class="text-white offset-3 mt-3 mb-3">Train Schedules info for <%=result[0].departure%> / <%=result[0].arrival%> :</h4>  
       <div class="bg-white container col-7 d-flex justify-content-around rounded">
         <div>
           <b><span class="text-secondary">Nombre de trajets par jour:</span></b>
