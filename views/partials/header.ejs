@@ -6,10 +6,19 @@
         <span id="brand">Tic&Tac</span>
       </a>
       <div id="navbarNav">
-        <ul class="navbar-nav d-flex flex-row me-3">
+        <ul class="navbar-nav d-flex flex-row me-3 align-items-center">
+          <% if (isConnected) { %>
+            <li class="nav-item me-3">
+              <span id="name">Hello <%= name %></span>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link text-danger" href="/users/disconnect"><b>Sign-Out</b></a>
+            </li>
+         <% } else { %>
           <li class="nav-item me-3">
             <a class="nav-link text-danger" href="/login"><b>Sign-in/Sign-up</b></a>
           </li>
+         <%}%> 
           <li class="nav-item me-3">
             <a class="nav-link text-dark" href="/last-trips"><b>My Last Trips</b></a>
           </li>
