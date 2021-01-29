@@ -10,7 +10,7 @@ var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  res.render('index', {city, isConnected: req.session.isConnected, name: req.session.name});
+  res.render('index', {city, isConnected: req.session.connectedId, name: req.session.name});
 });
 
 /* POST search page. */
