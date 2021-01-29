@@ -135,7 +135,6 @@ router.get('/delete-ticket', async function(req, res, next) {
     return;
   }
   req.session.pending.splice(req.query.position,1) // à tester
-  console.log(req.session.pending)
   res.redirect('/tickets');
 });
 
