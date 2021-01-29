@@ -15,15 +15,22 @@ router.get('/', async function(req, res, next) {
 
 /* POST search page. */
 router.post('/search', async function(req, res, next) {
+
   if (!req.session.connectedId) {
     res.redirect('/login');
     return;
   }
 // sécurité à ajouter: mettre tout en minuscule et première lettre en majuscule sur les req.body
 
+
+departureFormatted = req.body.departure.charAt(0).toUpperCase() + req.body.departure.toLowerCase().slice(1);
+arrivalFormatted = req.body.arrival.charAt(0).toUpperCase() + req.body.arrival.toLowerCase().slice(1);
+
+
+
   var result = await journeyModel.find({
-    departure:req.body.departure,
-    arrival:req.body.arrival,
+    departure:departureFormatted,
+    arrival:arrivalFormatted,
     date:req.body.date
   }) 
 
