@@ -127,4 +127,8 @@ router.get('/last-trips', (req,res,next) => {
   res.redirect('/users/last-trips');
 })
 
+router.get('/login', (re,res,next) => {
+  res.redirect('/users/login')
+})
+
 module.exports = router;
