@@ -47,9 +47,10 @@ const arrivalFormatted = req.body.arrival.charAt(0).toUpperCase() + req.body.arr
   var indexDateMax = datetab.indexOf(Math.max.apply(null,datetab))
   }
 
+  if (result.length > 0) {
   var dateMin = result[indexDateMin].departureTime
   var dateMax = result[indexDateMax].departureTime
-
+  }
 
   var date = new Date (req.body.date)
   date = date.getDate()+"/"+(date.getMonth()+1)
