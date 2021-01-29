@@ -19,7 +19,6 @@ router.route('/sign-up').post(async (req,res,next) => {
   const checkEmail = await UserModel.findOne({email: req.body.email});
 
   if (checkEmail) {
-    console.log("email already in use");
     req.session.hasTriedUp = true;
     res.redirect('/users/login');
     return;
