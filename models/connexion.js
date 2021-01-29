@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 // useNewUrlParser ;)
 var options = {
-    connectTimeoutMS: 5000,
+    connectTimeoutMS: 30000,
     useNewUrlParser: true,
     useUnifiedTopology: true
    };

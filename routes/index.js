@@ -17,14 +17,12 @@ router.get('/', async function(req, res, next) {
 router.post('/search', async function(req, res, next) {
 
   if (!req.session.connectedId) {
-    console.log("here1");
     req.session.savedSearch = req.body;
     res.redirect('/login');
     return;
   }
 
   if(req.session.savedSearch) {
-    console.log("here2");
     req.body = req.session.savedSearch;
     req.session.savedSearch = null;
   }
@@ -41,7 +39,7 @@ const arrivalFormatted = req.body.arrival.charAt(0).toUpperCase() + req.body.arr
   }) 
 
   var datetab = []
-  for (i=0;i<result.length;i++) {
+  for (let i=0;i<result.length;i++) {
     datetab.push(parseInt(result[i].departureTime))
   var indexDateMin = datetab.indexOf(Math.min.apply(null,datetab))
   var indexDateMax = datetab.indexOf(Math.max.apply(null,datetab))
