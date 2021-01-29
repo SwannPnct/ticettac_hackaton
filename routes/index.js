@@ -20,7 +20,6 @@ router.post('/search', async function(req, res, next) {
 departureFormatted = req.body.departure.charAt(0).toUpperCase() + req.body.departure.toLowerCase().slice(1);
 arrivalFormatted = req.body.arrival.charAt(0).toUpperCase() + req.body.arrival.toLowerCase().slice(1);
 
-
   var result = await journeyModel.find({
     departure:departureFormatted,
     arrival:arrivalFormatted,
