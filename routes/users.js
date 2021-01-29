@@ -36,10 +36,8 @@ router.route('/sign-up').post(async (req,res,next) => {
   req.session.connectedId = savedUser._id;
   req.session.name = savedUser.firstName;
   if (req.session.savedSearch) {
-    console.log("here3");
     res.redirect(307,'/search');
   } else {
-    console.log("here4");
     res.redirect('/');
   }
   
@@ -56,10 +54,8 @@ router.route('/sign-in').post( async (req,res,next) => {
     req.session.hasTriedIn = false;
     req.session.name = check.firstName;
     if (req.session.savedSearch) {
-      console.log("here5");
       res.redirect(307,'/search');
     } else {
-      console.log("here6");
       res.redirect('/');
     }
   } else {
