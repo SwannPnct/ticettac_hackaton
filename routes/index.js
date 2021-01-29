@@ -123,11 +123,8 @@ router.get('/confirm-trips', async (req,res,next) => {
   res.redirect('/'); // change here to display the confirmation pop-up
 })
 
-router.get('/last-trips', async (req,res,next) => {
-  const trips = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
-  // to be done
-  res.render('lasttrips',{})
+router.get('/last-trips', (req,res,next) => {
+  res.redirect('/users/last-trips');
 })
-
 
 module.exports = router;
