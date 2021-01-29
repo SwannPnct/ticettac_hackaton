@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Tic&Tac - Search Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://kit.fontawesome.com/908f94efd2.js" crossorigin="anonymous"></script>
@@ -14,6 +15,21 @@
         <a class="btn btn-danger" href="/">Home</a>
     </div>
     <% } else { %>
+      <h4 class="text-white offset-3 mt-5 mb-3">Train Schedules info for <%=result[0].departure%> / <%=result[0].arrival%> :</h4>  
+      <div class="bg-white container col-7 d-flex justify-content-around rounded">
+        <div>
+          <b><span class="text-secondary">Nombre de trajets par jour:</span></b>
+          <div class="text-center hour"> <%= result.length %></div>
+      </div>
+      <div>
+        <b><span class="text-secondary">Première heure de départ:</span></b>
+        <div class="text-center hour"><%= dateFormat(dateMin) %> </div>
+    </div>
+    <div>
+      <b><span class="text-secondary">Dernière heure de départ:</span></b>
+      <div class="text-center hour"><%= dateFormat(dateMax) %> </div>
+  </div>
+    </div>    
       <h4 class="text-white offset-3 mt-5 mb-3">Tickets available on <%=date%> :</h4>  
       <div class="container col-7">
       <% for (i=0;i<result.length;i++) { %>
