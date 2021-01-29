@@ -33,8 +33,6 @@ router.route('/sign-up').post(async (req,res,next) => {
   })
 
   const savedUser = await newUser.save();
-
-  console.log("user added!");
   req.session.hasTriedUp = false;
   req.session.connectedId = savedUser._id;
   res.redirect('/');
@@ -47,12 +45,10 @@ router.route('/sign-in').post( async (req,res,next) => {
   const check = await UserModel.findOne({email: req.body.email, password: req.body.password});
 
   if (check) {
-    console.log("user connected!");
     req.session.connectedId = check._id;
     req.session.hasTriedIn = false;
     res.redirect('/');
   } else {
-    console.log("wrong credentials or user not existing");
     req.session.hasTriedIn = true;
     res.redirect('/users/login');
   }
@@ -63,6 +59,10 @@ router.route('/sign-in').post( async (req,res,next) => {
 
 
 router.get('/last-trips', async (req,res,next) => {
+  if (!req.session.connectedId) {
+    res.redirect('/login');
+    return;
+  }
   const user = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
   var date = [];
     for (let i=0; i<user.bookings.length;i++) {
