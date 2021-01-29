@@ -35,7 +35,14 @@ router.route('/sign-up').post(async (req,res,next) => {
   req.session.hasTriedUp = false;
   req.session.connectedId = savedUser._id;
   req.session.name = savedUser.firstName;
-  res.redirect('/');
+  if (req.session.savedSearch) {
+    console.log("here3");
+    res.redirect(307,'/search');
+  } else {
+    console.log("here4");
+    res.redirect('/');
+  }
+  
 })
 .get((req,res,next) => {
   res.redirect('/users/login');
@@ -48,7 +55,13 @@ router.route('/sign-in').post( async (req,res,next) => {
     req.session.connectedId = check._id;
     req.session.hasTriedIn = false;
     req.session.name = check.firstName;
-    res.redirect('/');
+    if (req.session.savedSearch) {
+      console.log("here5");
+      res.redirect(307,'/search');
+    } else {
+      console.log("here6");
+      res.redirect('/');
+    }
   } else {
     req.session.hasTriedIn = true;
     res.redirect('/users/login');
