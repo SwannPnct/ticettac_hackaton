@@ -61,4 +61,14 @@ router.route('/sign-in').post( async (req,res,next) => {
   res.redirect('/users/login');
 })
 
+
+router.get('/last-trips', async (req,res,next) => {
+  const user = await UserModel.findById(req.session.connectedId).populate('bookings').exec();
+  var date = [];
+    for (let i=0; i<user.bookings.length;i++) {
+    date.push(user.bookings[i].date.toLocaleDateString())
+    }
+  res.render('lasttrips',{bookings: user.bookings, date})
+})
+
 module.exports = router;

@@ -11,6 +11,20 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+header {
+  height: 65px;
+}
+
+header nav img {
+  width: 43px;
+  height: 40px;
+}
+
+header nav #brand {
+  font-size: 130%;
+  font-weight: 900;
+}
+
 .landmark {
   width: 15%;
 }

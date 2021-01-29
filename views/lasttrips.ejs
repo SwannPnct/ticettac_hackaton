@@ -9,6 +9,33 @@
   <body>
     <%- include('./partials/header.ejs') %> 
     
+    <h4 class="text-white offset-3 mt-5 mb-3">My last trips:</h4>
+    <div class="container col-10">
+      <table class="table bg-white table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Journey</th>
+              <th scope="col">Departure time</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+    <% for (i=0;i<bookings.length;i++) { %>
+        <tbody>
+          <tr class="ticket-item">
+            <td><%=date[i]%></td>
+            <td><%=bookings[i].departure%> / <%=bookings[i].arrival%></td>
+            <td><%=bookings[i].departureTime%></td>
+            <td><%=bookings[i].price%> €</td>
+            <% } %>
+            </tbody>
+            </table>
+          </div>
+          <div class="container d-flex">
+            <a class="btn btn-primary offset-1" href="/">Home</a>
+          </div>
+
+
     <%- include('./partials/footer.ejs') %> 
   </body>
 </html>
