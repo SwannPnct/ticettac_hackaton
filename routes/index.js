@@ -86,17 +86,12 @@ router.get('/result', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/tickets', async (req,res,next) => {
+  if(req.session.pending == undefined){
+    req.session.pending = []
+  }
 
-
-router.get('/book-ticket', async (req,res,next) => {
-if (!req.session.pending) {
-  req.session.pending = [];
-}
-if (!req.session.pending.includes(req.query.id)) {
-
-req.session.pending.push(req.query.id);
-
-const bookings = [];
+  const bookings = [];
 for (i=0;i<req.session.pending.length;i++) {
   const booking = await journeyModel.findById(req.session.pending[i])
   bookings.push(booking);
@@ -106,10 +101,31 @@ for (i=0;i<req.session.pending.length;i++) {
     for (i=0; i<bookings.length;i++) {
   date.push(bookings[i].date.toLocaleDateString())
     }
-  
+
   res.render('tickets', {bookings, date})
-} res.redirect('/'); // what behavoir do we want when trip already selected?  
 });
+
+
+router.get('/book-ticket', async (req,res,next) => {
+if (!req.session.pending) {
+  req.session.pending = [];
+} 
+
+if (!req.session.pending.includes(req.query.id)) {
+
+req.session.pending.push(req.query.id);
+
+  res.redirect('/tickets')
+}  else { res.redirect('/tickets'); // what behavoir do we want when trip already selected?  
+}});
+
+
+router.get('/delete-ticket', async function(req, res, next) {
+  req.session.pending.splice(req.query.position,1) // à tester
+  console.log(req.session.pending)
+  res.redirect('/tickets');
+});
+
 
 router.get('/confirm-trips', async (req,res,next) => {
   const user = await UserModel.findById(req.session.connectedId);
