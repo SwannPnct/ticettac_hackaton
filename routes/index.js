@@ -22,15 +22,16 @@ router.post('/search', async function(req, res, next) {
     res.redirect('/login');
     return;
   }
+
   if(req.session.savedSearch) {
     console.log("here2");
     req.body = req.session.savedSearch;
     req.session.savedSearch = null;
   }
 
+
 const departureFormatted = req.body.departure.charAt(0).toUpperCase() + req.body.departure.toLowerCase().slice(1);
 const arrivalFormatted = req.body.arrival.charAt(0).toUpperCase() + req.body.arrival.toLowerCase().slice(1);
-
 
 
   var result = await journeyModel.find({
@@ -39,11 +40,21 @@ const arrivalFormatted = req.body.arrival.charAt(0).toUpperCase() + req.body.arr
     date:req.body.date
   }) 
 
+  var datetab = []
+  for (i=0;i<result.length;i++) {
+    datetab.push(parseInt(result[i].departureTime))
+  var indexDateMin = datetab.indexOf(Math.min.apply(null,datetab))
+  var indexDateMax = datetab.indexOf(Math.max.apply(null,datetab))
+  }
+
+  var dateMin = result[indexDateMin].departureTime
+  var dateMax = result[indexDateMax].departureTime
+
+
   var date = new Date (req.body.date)
   date = date.getDate()+"/"+(date.getMonth()+1)
   
-
-  res.render('search', {city, result, date,isConnected: req.session.connectedId,name: req.session.name});
+    res.render('search', {city, result, date,isConnected: req.session.connectedId,name: req.session.name,dateMax,dateMin});
 });
 
 // Remplissage de la base de donnée, une fois suffit

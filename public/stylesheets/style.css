@@ -48,3 +48,9 @@ footer {
 .pricedesign {
   font-size: x-large;
 }
+
+.hour {
+  font-size: x-large;
+  font-weight: bold;
+  margin-top: 5px;
+}
