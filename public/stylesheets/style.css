@@ -12,16 +12,16 @@ body {
 }
 
 header {
-  height: 65px;
+  height: 60px;
 }
 
 header nav img {
-  width: 43px;
-  height: 40px;
+  width: 39px;
+  height: 35px;
 }
 
 header nav #brand {
-  font-size: 130%;
+  font-size: 120%;
   font-weight: 900;
 }
 
