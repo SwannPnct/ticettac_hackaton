@@ -30,7 +30,7 @@
             <th scope="row"><%= i+1 %></th>
             <td><%=bookings[i].departure%> / <%=bookings[i].arrival%></td>
             <td><%=date[i]%></td>
-            <td><%=bookings[i].departureTime%></td>
+            <td><%=dateFormat(bookings[i].departureTime)%></td>
             <td><%=bookings[i].price%> €</td>
             <td class="mx-3"><a href="/delete-ticket?position=<%=i%>"><button class="btn btn btn-outline-secondary btn-sm" name="button"><i class="far fa-trash-alt "></i></button></a></td>            <% } %>
             <tr class="table-danger">
