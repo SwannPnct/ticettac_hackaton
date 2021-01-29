@@ -25,7 +25,7 @@
           <tr class="ticket-item">
             <td><%=date[i]%></td>
             <td><%=bookings[i].departure%> / <%=bookings[i].arrival%></td>
-            <td><%=bookings[i].departureTime%></td>
+            <td><%=dateFormat(bookings[i].departureTime)%></td>
             <td><%=bookings[i].price%> €</td>
             <% } %>
             </tbody>

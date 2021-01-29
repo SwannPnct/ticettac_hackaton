@@ -12,6 +12,11 @@ var usersRouter = require('./routes/users');
 var app = express();
 const session = require('express-session');
 
+app.locals.dateFormat = function(date){
+var ampm = (date.substr(0, date.indexOf(':')) >= 12) ? date+" pm" : date+" am";
+return ampm
+}
+
 app.use(
   session({ 
   secret: 'this_is_something_really_secured_i_promise', 
