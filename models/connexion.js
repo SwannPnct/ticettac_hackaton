@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+require('dotenv').config();
 
 // useNewUrlParser ;)
 var options = {
@@ -7,7 +8,7 @@ var options = {
     useUnifiedTopology: true
    };
 
-mongoose.connect('mongodb+srv://npoyet:admin@cluster0.mgo4x.mongodb.net/hackaton',
+mongoose.connect(process.env.DB_CONNECT,
    options,
    function(err) {
     if (err) {

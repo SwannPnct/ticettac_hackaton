@@ -16,7 +16,6 @@ router.get('/', async function(req, res, next) {
   res.render('index', {city, isConnected: req.session.connectedId, name: req.session.name});
 });
 
-/* POST search page. */
 router.post('/search', async function(req, res, next) {
 
   if (!req.session.connectedId) {
@@ -136,7 +135,7 @@ router.get('/delete-ticket', async function(req, res, next) {
     res.redirect('/login');
     return;
   }
-  req.session.pending.splice(req.query.position,1) // à tester
+  req.session.pending.splice(req.query.position,1);
   res.redirect('/tickets');
 });
 
