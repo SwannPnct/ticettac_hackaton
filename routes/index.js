@@ -147,14 +147,12 @@ router.get('/confirm-trips', async (req,res,next) => {
     return;
   }
   const user = await UserModel.findById(req.session.connectedId);
-  console.log(user);
-  console.log(req.session.connectedId);
   for (let i=0;i<req.session.pending.length;i++) {
     user.bookings.push(req.session.pending[i]);
   }
   await user.save();
   req.session.pending = [];
-  res.redirect('/'); // change here to display the confirmation pop-up
+  res.redirect('/');
 })
 
 router.get('/last-trips', (req,res,next) => {
